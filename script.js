@@ -32,3 +32,30 @@ function typeText(element, text) {
     }
   }, 20);
 }
+
+// generate unique ID for each message div of bot
+// necessary for typing text effect for that specific reply
+// without unique ID, typing text will work on every element
+function generateUniqueId() {
+  const timestamp = Date.now();
+  const randomNumber = Math.random();
+  const hexadecimalString = randomNumber.toString(16);
+
+  return `id-${timestamp}-${hexadecimalString}`;
+}
+
+function chatStripe(isAi, value, uniqueId) {
+  return `
+        <div class="wrapper ${isAi && "ai"}">
+            <div class="chat">
+                <div class="profile">
+                    <img 
+                      src=${isAi ? bot : user} 
+                      alt="${isAi ? "bot" : "user"}" 
+                    />
+                </div>
+                <div class="message" id=${uniqueId}>${value}</div>
+            </div>
+        </div>
+    `;
+}
